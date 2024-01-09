@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Elements/Button";
 import CardProduct from "../components/Fragments/CardProduct";
+import Counter from "../components/Fragments/Counter";
 const products = [
   {
     id: 1,
@@ -25,16 +26,34 @@ const products = [
     price: 3000000,
     description: "lorem sdfikjl kontsdfksadjfl.",
   },
+  {
+    id: 4,
+    src: "/shoes.jpg",
+    name: "Supra",
+    price: 4000000,
+    description: "Supre lorem ipsum set amet",
+  },
 ];
 
 const email = localStorage.getItem("email");
 export default function ProductsPage() {
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      qty: 1,
-    },
-  ]);
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
+  }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      const sum = cart.reduce((acc, item) => {
+        const product = products.find((product) => product.id == item.id);
+        return acc + product.price * item.qty;
+      }, 0);
+      setTotalPrice(sum);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const handleLogOut = () => {
     localStorage.removeItem("email");
@@ -71,7 +90,7 @@ export default function ProductsPage() {
         </Button>
       </div>
       <div className="flex justify-center py-5">
-        <div className="w-4/6 flex flex-wrap">
+        <div className="w-4/6  flex flex-wrap ">
           {products.map((item) => (
             <CardProduct key={item.id}>
               <CardProduct.Header src={item.src}></CardProduct.Header>
@@ -79,8 +98,9 @@ export default function ProductsPage() {
                 {item.description}
               </CardProduct.Body>
               <CardProduct.Footer
-                price={item.price}
-                id={item.id}
+                // price={item.price}
+                // id={item.id}
+                item={item}
                 addToCart={handleAddToCart}
               ></CardProduct.Footer>
             </CardProduct>
@@ -128,9 +148,26 @@ export default function ProductsPage() {
                   </>
                 );
               })}
+              <tr>
+                <td>
+                  <b>Total Price</b>
+                </td>
+                <td colSpan={"3"}>
+                  <b>
+                    RP{" "}
+                    {totalPrice.toLocaleString("id-ID", {
+                      styles: "currency",
+                      currency: "IDR",
+                    })}
+                  </b>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="mt-5 flex justify-center ">
+        <Counter />
       </div>
     </>
   );
