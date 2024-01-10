@@ -83,16 +83,23 @@ export default function ProductsPage() {
   };
 
   // use ref
-  const cartRef = useRef([
-    {
-      id: 1,
-      qty: 1,
-    },
-  ]);
+  const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
 
   const handleAddToCartRef = (id) => {
     cartRef.current = [...cartRef.current, { id, qty: 1 }];
+    localStorage.setItem("cart", JSON.stringify(cartRef.current));
   };
+
+  const totalPriceRef = useRef(null);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    } else {
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]);
+  console.log(totalPriceRef);
   return (
     <>
       <div className="flex justify-end h-10 bg-blue-600 text-white items-center px-10 py-7">
@@ -133,7 +140,7 @@ export default function ProductsPage() {
               </tr>
             </thead>
             <tbody>
-              {cartRef.current.map((item) => {
+              {cart.map((item) => {
                 const product = products.find(
                   (product) => product.id == item.id
                 );
@@ -158,11 +165,11 @@ export default function ProductsPage() {
                   </tr>
                 );
               })}
-              {/* <tr>
-                <td>
+              <tr ref={totalPriceRef}>
+                <td colSpan={3}>
                   <b>Total Price</b>
                 </td>
-                <td colSpan={"3"}>
+                <td>
                   <b>
                     RP{" "}
                     {totalPrice.toLocaleString("id-ID", {
@@ -171,7 +178,7 @@ export default function ProductsPage() {
                     })}
                   </b>
                 </td>
-              </tr> */}
+              </tr>
             </tbody>
           </table>
         </div>
