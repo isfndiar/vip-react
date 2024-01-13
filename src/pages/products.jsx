@@ -47,7 +47,7 @@ export default function ProductsPage() {
   }, []);
 
   useEffect(() => {
-    productApi(setProducts);
+    productApi((data) => setProducts(data));
     // productApi();
   }, []);
 
@@ -108,6 +108,16 @@ export default function ProductsPage() {
       totalPriceRef.current.style.display = "table-row";
     } else {
       totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]);
+
+  const handleDeleteRef = useRef(null);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      handleDeleteRef.current.style.display = "inline-block";
+    } else {
+      handleDeleteRef.current.style.display = "none";
     }
   }, [cart]);
 
@@ -194,6 +204,16 @@ export default function ProductsPage() {
               </tr>
             </tbody>
           </table>
+          <button
+            ref={handleDeleteRef}
+            className="py-3 px-6 bg-black font-semibold text-white rounded-md"
+            onClick={() => {
+              localStorage.removeItem("cart");
+              setCart([]);
+            }}
+          >
+            Delete
+          </button>
         </div>
       </div>
       <div className="mt-5 flex justify-center ">

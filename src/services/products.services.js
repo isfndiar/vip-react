@@ -10,3 +10,9 @@ export const productApi = (callback) => {
       console.log(error);
     });
 };
+
+// export const productApi = async (callback) => {
+//   const res = await fetch("https://fakestoreapi.com/products");
+//   const data = await res.json();
+//   callback(data);
+// };
