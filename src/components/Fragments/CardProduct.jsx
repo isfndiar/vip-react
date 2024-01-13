@@ -11,7 +11,11 @@ export default function CardProduct({ children }) {
 function Header({ src }) {
   return (
     <a href="">
-      <img src={src} alt="sepatu baru" className="p-8 rounded-t-lg" />
+      <img
+        src={src}
+        alt="sepatu baru"
+        className="p-8 rounded-t-lg object-cover w-full h-60"
+      />
     </a>
   );
 }
@@ -21,7 +25,7 @@ function Body({ name, children }) {
     <div className="px-5 pb-5    h-full">
       <a href="">
         <h5 className="text-xl text-white tracking-tight font-semibold ">
-          {name}
+          {name.substring(0, 20)}...
         </h5>
         <p className="text-white  text-s">{children}</p>
       </a>
