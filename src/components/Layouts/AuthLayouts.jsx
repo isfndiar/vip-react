@@ -11,6 +11,7 @@ function AuthLayouts(props) {
         </p>
         {children}
 
+        {/* if Have Account */}
         <p className="text-sm mt-5 text-center">
           {type === "login"
             ? "Don't have an account?"
@@ -19,7 +20,7 @@ function AuthLayouts(props) {
             to={type === "login" ? "/register" : "/login"}
             className=" text-blue-600 font-bold"
           >
-            {type === "login" ? "Log in" : "Sign Up"}
+            {type === "login" ? "Sign Up" : "Login"}
           </Link>
         </p>
       </div>

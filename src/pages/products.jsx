@@ -3,54 +3,26 @@ import Button from "../components/Elements/Button";
 import CardProduct from "../components/Fragments/CardProduct";
 import Counter from "../components/Fragments/Counter";
 import { productApi } from "../services/products.services";
-// const products = [
-//   {
-//     id: 1,
-//     src: "/shoes.jpg",
-//     name: "kuma",
-//     price: 1000000,
-//     description:
-//       "lorem sdfikjl kontsdfksadjflksdlkafsiad isdafjlksdflka sdfla lsdfjsadflk ksdfsdlkfjaslkf.",
-//   },
-//   {
-//     id: 2,
-//     src: "/shoes.jpg",
-//     name: "Naiki",
-//     price: 2500000,
-//     description:
-//       "lorem sdfikjl kontsdfksad sdfasdf sdfasdsdf sdf s adfsadfasd fsdfsdf asff sd sdfsdaf asdfsadf as dfasdfjflksdlkafsiad isdafjlksdflka sdfla lsdfjsadflk ksdfsdlkfjaslkf.",
-//   },
-//   {
-//     id: 3,
-//     src: "/shoes.jpg",
-//     name: "Abibas",
-//     price: 3000000,
-//     description: "lorem sdfikjl kontsdfksadjfl.",
-//   },
-//   {
-//     id: 4,
-//     src: "/shoes.jpg",
-//     name: "Supra",
-//     price: 4000000,
-//     description: "Supre lorem ipsum set amet",
-//   },
-// ];
+import useLogin from "../hooks/useLogin";
 
 export default function ProductsPage() {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
-  const email = localStorage.getItem("email");
 
+  const username = useLogin(); // Login or not
+  // get local storage cart
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, []);
 
+  // get Products APi
   useEffect(() => {
     productApi((data) => setProducts(data));
     // productApi();
   }, []);
 
+  // product price * product qty
   useEffect(() => {
     if (products.length > 0 && cart.length > 0) {
       const sum = cart.reduce((acc, item) => {
@@ -63,11 +35,9 @@ export default function ProductsPage() {
   }, [cart, products]);
 
   const handleLogOut = () => {
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
+    localStorage.removeItem("token");
     localStorage.removeItem("fullname");
     localStorage.removeItem("text");
-    localStorage.removeItem("confirm-password");
     window.location.href = "/login";
   };
 
@@ -124,7 +94,7 @@ export default function ProductsPage() {
   return (
     <>
       <div className="flex justify-end h-10 bg-blue-600 text-white items-center px-10 py-7">
-        {email}
+        {username}
         <Button classname="bg-black ms-5" onClick={handleLogOut}>
           Log Out
         </Button>
@@ -222,3 +192,36 @@ export default function ProductsPage() {
     </>
   );
 }
+
+// const products = [
+//   {
+//     id: 1,
+//     src: "/shoes.jpg",
+//     name: "kuma",
+//     price: 1000000,
+//     description:
+//       "lorem sdfikjl kontsdfksadjflksdlkafsiad isdafjlksdflka sdfla lsdfjsadflk ksdfsdlkfjaslkf.",
+//   },
+//   {
+//     id: 2,
+//     src: "/shoes.jpg",
+//     name: "Naiki",
+//     price: 2500000,
+//     description:
+//       "lorem sdfikjl kontsdfksad sdfasdf sdfasdsdf sdf s adfsadfasd fsdfsdf asff sd sdfsdaf asdfsadf as dfasdfjflksdlkafsiad isdafjlksdflka sdfla lsdfjsadflk ksdfsdlkfjaslkf.",
+//   },
+//   {
+//     id: 3,
+//     src: "/shoes.jpg",
+//     name: "Abibas",
+//     price: 3000000,
+//     description: "lorem sdfikjl kontsdfksadjfl.",
+//   },
+//   {
+//     id: 4,
+//     src: "/shoes.jpg",
+//     name: "Supra",
+//     price: 4000000,
+//     description: "Supre lorem ipsum set amet",
+//   },
+// ];

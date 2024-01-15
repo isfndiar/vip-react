@@ -12,7 +12,6 @@ function FormRegister(props) {
     localStorage.setItem("email", e.target.email.value);
     localStorage.setItem("fullname", e.target.text.value);
     localStorage.setItem("password", e.target.password.value);
-    localStorage.setItem("confirm-password", e.target.confirmPassword.value);
 
     window.location.href = "/products";
   };
