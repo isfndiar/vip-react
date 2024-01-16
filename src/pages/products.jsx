@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button";
 import CardProduct from "../components/Fragments/CardProduct";
 import Counter from "../components/Fragments/Counter";
-import { productApi } from "../services/products.services";
+import { productApi } from "../services/products.service";
 import useLogin from "../hooks/useLogin";
 
 export default function ProductsPage() {

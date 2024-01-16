@@ -9,7 +9,8 @@ export default function useLogin() {
     if (token) {
       setUsername(getUsername(localStorage.getItem("token")));
     } else {
-      window.location.href = "./login";
+      window.location.href = "/login";
+      // window.open("/login");
     }
   }, []);
   return username;

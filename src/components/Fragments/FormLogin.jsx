@@ -6,6 +6,7 @@ import { login } from "../../services/auth.service";
 function FormLogin(props) {
   const { text } = props;
   const [loginFailed, setLoginFailed] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const handleLogin = (e) => {
     e.preventDefault();
     const data = {
@@ -16,7 +17,7 @@ function FormLogin(props) {
     login(data, (status, res) => {
       if (status) {
         localStorage.setItem("token", res);
-        window.location.href = "/products";
+        window.open("/products");
       } else {
         setLoginFailed(res.response.data);
       }
