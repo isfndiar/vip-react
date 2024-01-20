@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../Elements/Button";
 
 export default function CardProduct({ children }) {
@@ -8,15 +9,15 @@ export default function CardProduct({ children }) {
   );
 }
 
-function Header({ src }) {
+function Header({ src, id }) {
   return (
-    <a href="">
+    <Link to={`/product/${id}`}>
       <img
         src={src}
         alt="sepatu baru"
         className="p-8 rounded-t-lg object-cover w-full h-60"
       />
-    </a>
+    </Link>
   );
 }
 

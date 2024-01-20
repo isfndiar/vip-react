@@ -94,7 +94,7 @@ export default function ProductsPage() {
           {products.length > 0 &&
             products.map((item) => (
               <CardProduct key={item.id}>
-                <CardProduct.Header src={item.image}></CardProduct.Header>
+                <CardProduct.Header src={item.image} id={item.id} />
                 <CardProduct.Body name={item.title}>
                   {item.description.substring(0, 100)}...
                 </CardProduct.Body>

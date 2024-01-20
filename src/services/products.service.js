@@ -11,8 +11,13 @@ export const productApi = (callback) => {
     });
 };
 
-// export const productApi = async (callback) => {
-//   const res = await fetch("https://fakestoreapi.com/products");
-//   const data = await res.json();
-//   callback(data);
-// };
+export const getProductDetail = (id, callback) => {
+  axios
+    .get(`https://fakestoreapi.com/products/${id}`)
+    .then((res) => {
+      callback(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
