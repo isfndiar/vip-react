@@ -60,16 +60,6 @@ export default function ProductsPage() {
   };
 
   // use ref
-  const cartRef = useRef([
-    {
-      id: 1,
-      qty: 1,
-    },
-  ]);
-
-  const handleAddToCartRef = (id) => {
-    cartRef.current = [...cartRef.current, { id, qty: 1 }];
-  };
 
   const totalPriceRef = useRef(null);
 
@@ -176,7 +166,7 @@ export default function ProductsPage() {
           </table>
           <button
             ref={handleDeleteRef}
-            className="py-3 px-6 bg-black font-semibold text-white rounded-md"
+            className="py-3 px-3 bg-black font-semibold text-white rounded-md mt-10 "
             onClick={() => {
               localStorage.removeItem("cart");
               setCart([]);
@@ -186,9 +176,9 @@ export default function ProductsPage() {
           </button>
         </div>
       </div>
-      <div className="mt-5 flex justify-center ">
+      {/* <div className="mt-5 flex justify-center ">
         <Counter />
-      </div>
+      </div> */}
     </>
   );
 }
