@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItem } from "../../redux/cartSlice/cartSlice";
 
 const TableCart = (props) => {
   const { products } = props;
   const cart = useSelector((state) => state.cart.data);
+  const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
   // product price * product qty
@@ -28,15 +30,21 @@ const TableCart = (props) => {
     }
   }, [cart]);
 
-  // const handlesDeleteRef = useRef(null);
+  const handleDeleteAll = (e) => {
+    e.preventDefault();
+    dispatch(deleteItem([]));
+    localStorage.removeItem("cart");
+  };
 
-  // useEffect(() => {
-  //   if (cart.length > 0) {
-  //     handleDeleteRef.current.style.display = "inline-block";
-  //   } else {
-  //     handleDeleteRef.current.style.display = "none";
-  //   }
-  // }, [cart]);
+  const handleDeleteRef = useRef(null);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      handleDeleteRef.current.style.display = "inline-block";
+    } else {
+      handleDeleteRef.current.style.display = "none";
+    }
+  }, [cart]);
 
   return (
     <>
@@ -90,15 +98,13 @@ const TableCart = (props) => {
           </tr>
         </tbody>
       </table>
-      {/* <button
+      <button
         ref={handleDeleteRef}
         className="py-3 px-3 bg-black font-semibold text-white rounded-md mt-10 "
-        onClick={() => {
-          localStorage.removeItem("cart");
-        }}
+        onClick={(e) => handleDeleteAll(e)}
       >
         Delete
-      </button> */}
+      </button>
     </>
   );
 };
