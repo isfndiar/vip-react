@@ -4,7 +4,7 @@ function AuthLayouts(props) {
   const { children, title, type } = props;
   return (
     <>
-      <div className="w-full max-w-xs  ">
+      <div className={`w-full max-w-xs  dark:bg-white`}>
         <div className="text-3xl text-blue-600">{title}</div>
         <p className="font-medium text-slate-500 mb-4">
           Welcome, Please enter your details

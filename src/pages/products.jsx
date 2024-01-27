@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Counter from "../components/Fragments/Counter";
 import { productApi } from "../services/products.service";
 import useLogin from "../hooks/useLogin";
 import TableCart from "../components/Fragments/TableCart";
 import Navbar from "../components/Layouts/Navbar";
+import { DarkMode } from "../context/DarkMode";
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
+  const { isDarkMode } = useContext(DarkMode);
 
   useLogin(); // Login or not
   // get local storage cart
@@ -22,7 +24,11 @@ export default function ProductsPage() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center py-5">
+      <div
+        className={`flex justify-center py-5 ${
+          isDarkMode ? "bg-slate-700 text-white" : "bg-white"
+        } `}
+      >
         <div className="w-4/6  flex flex-wrap ">
           {products.length > 0 &&
             products.map((item) => (
