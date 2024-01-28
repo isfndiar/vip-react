@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 import { useContext } from "react";
 import { DarkMode } from "../../context/DarkMode";
 import * as Icon from "react-feather";
+import { useTotalPrice } from "../../context/TotalPriceContext";
 const Navbar = () => {
   const [totalCart, setTotalCart] = useState(0);
   const { isDarkMode, setIsDarkMode } = useContext(DarkMode);
+  const { total } = useTotalPrice();
   const username = useLogin();
 
   const cart = useSelector((state) => state.cart.data);
@@ -46,13 +48,13 @@ const Navbar = () => {
       <Button classname="bg-black ms-5" onClick={handleLogOut}>
         Log Out
       </Button>
-      <div className="bg-black ms-5 px-6 py-2 rounded-md mr-5">{totalCart}</div>
-      {/* <Button
-        onClick={() => setIsDarkMode(!isDarkMode)}
-        className={`bg-black  rounded-md mr-2`}
-      >
-        {isDarkMode ? "Dark" : "Light"}
-      </Button> */}
+      <div className="bg-black ms-5 px-6 py-2 rounded-md mr-5">
+        item : {totalCart} | Total Price : ${" "}
+        {total.toLocaleString("id-ID", {
+          styles: "currency",
+          currency: "IDR",
+        })}
+      </div>
       <select
         className="bg-black ms-5 px-3 py-2 rounded-md mr-5 text-white"
         name="toggle-dark-light"
@@ -61,12 +63,8 @@ const Navbar = () => {
       >
         <option value="light" className="text-sm flex">
           Light
-          <Icon.Sun />
         </option>
-        <option value="dark">
-          Dark
-          <Icon.Moon />
-        </option>
+        <option value="dark">Dark</option>
       </select>
     </div>
   );
