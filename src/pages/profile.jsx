@@ -6,6 +6,19 @@ export default function ProfilePage() {
 
   const onScroll = () => {};
   return (
+    <div className="  h-screen w-screen  flex justify-center items-center">
+      <span
+        style={{ backgroundColor: "black" }}
+        className=" text-white  hover:w-  "
+      >
+        Lorem
+      </span>
+    </div>
+  );
+}
+
+const lorem = () => {
+  return (
     <div className="bg-black text-white overflow-x-auto snap-x  whitespace-nowrap    ">
       <span className="h-screen w-screen text-black bg-white flex justify-center items-center  ">
         Lorem
@@ -15,4 +28,4 @@ export default function ProfilePage() {
       </span>
     </div>
   );
-}
+};

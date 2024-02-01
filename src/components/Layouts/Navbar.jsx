@@ -7,8 +7,9 @@ import { DarkMode } from "../../context/DarkMode";
 import * as Icon from "react-feather";
 import { useTotalPrice } from "../../context/TotalPriceContext";
 const Navbar = () => {
-  const [totalCart, setTotalCart] = useState(0);
   const { isDarkMode, setIsDarkMode } = useContext(DarkMode);
+  const [totalCart, setTotalCart] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const { total } = useTotalPrice();
   const username = useLogin();
 
@@ -48,24 +49,35 @@ const Navbar = () => {
       <Button classname="bg-black ms-5" onClick={handleLogOut}>
         Log Out
       </Button>
-      <div className="bg-black ms-5 px-6 py-2 rounded-md mr-5">
+      <div className="bg-black ms-5 px-6 py-2 rounded-md mr-20">
         item : {totalCart} | Total Price : ${" "}
         {total.toLocaleString("id-ID", {
           styles: "currency",
           currency: "IDR",
         })}
       </div>
-      <select
-        className="bg-black ms-5 px-3 py-2 rounded-md mr-5 text-white"
+      <div
+        className="bg-black  px-4 py-2 rounded-md  text-white relative cursor-pointer"
         name="toggle-dark-light"
-        onChange={(e) => ToggleDarkMode(e)}
+        onClick={() => setIsOpen((open) => !open)}
         id="toggle-dl"
       >
-        <option value="light" className="text-sm flex">
-          Light
-        </option>
-        <option value="dark">Dark</option>
-      </select>
+        {isDarkMode ? "Dark" : "Light"}
+        <div
+          className={`absolute  left-0 bg-black   rounded-md ${
+            isOpen ? "px-[0.9rem] py-2" : ""
+          }`}
+        >
+          {isOpen && (
+            <>
+              <div className="" onClick={() => setIsDarkMode(false)}>
+                Light
+              </div>
+              <div onClick={() => setIsDarkMode(true)}>Dark</div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
