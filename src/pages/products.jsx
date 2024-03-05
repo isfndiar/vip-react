@@ -19,8 +19,6 @@ export default function ProductsPage() {
     // productApi();
   }, []);
 
-  // use ref
-
   return (
     <>
       <Navbar />
@@ -53,9 +51,6 @@ export default function ProductsPage() {
           <TableCart products={products} />
         </div>
       </div>
-      {/* <div className="mt-5 flex justify-center ">
-        <Counter />
-      </div> */}
     </>
   );
 }

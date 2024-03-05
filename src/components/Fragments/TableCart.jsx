@@ -17,32 +17,24 @@ const TableCart = (props) => {
   useEffect(() => {
     if (products.length > 0 && cart.length > 0) {
       const sum = cart.reduce((acc, item) => {
+        // eslint-disable-next-line react/prop-types
         const product = products.find((product) => product.id == item.id);
-        return acc + product.price * item.qty;
+        return acc + product?.price * item.qty;
       }, 0);
       dispatch2({ type: "UPDATE", payload: { total: sum } });
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart, products]);
 
-  const totalPriceRef = useRef(null);
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      totalPriceRef.current.style.display = "table-row";
-    } else {
-      totalPriceRef.current.style.display = "none";
-    }
-  }, [cart]);
-
+  // EVENT LISTENER
   const handleDeleteAll = (e) => {
     e.preventDefault();
     dispatch(deleteItem([]));
     localStorage.removeItem("cart");
   };
 
+  // USEREF
   const handleDeleteRef = useRef(null);
-
   useEffect(() => {
     if (cart.length > 0) {
       handleDeleteRef.current.style.display = "inline-block";
@@ -51,6 +43,15 @@ const TableCart = (props) => {
     }
   }, [cart]);
 
+  const totalPriceRef = useRef(null);
+  useEffect(() => {
+    console.log(cart);
+    if (cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    } else {
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]);
   return (
     <>
       <table className="text-left table-auto border-separate border-spacing-x-5 ">
@@ -68,18 +69,18 @@ const TableCart = (props) => {
               const product = products.find((product) => product.id == item.id);
               return (
                 <tr key={item.id}>
-                  <td>{product.title.substring(0, 10)}...</td>
+                  <td>{product?.title.substring(0, 10)}...</td>
                   <td>
                     ${" "}
-                    {product.price.toLocaleString("id-ID", {
+                    {product?.price.toLocaleString("id-ID", {
                       styles: "currency",
                       currency: "IDR",
                     })}
                   </td>
-                  <td>{item.qty}</td>
+                  <td>{item?.qty}</td>
                   <td>
                     ${" "}
-                    {(item.qty * product.price).toLocaleString("id-ID", {
+                    {(item?.qty * product?.price).toLocaleString("id-ID", {
                       styles: "currency",
                       currency: "IDR",
                     })}

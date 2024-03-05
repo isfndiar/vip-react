@@ -36,14 +36,15 @@ function FormLogin(props) {
         label="Usename"
         name="username"
         type="text"
-        placeholder="Jhondoe Lawra"
+        placeholder="johnd"
         ref={usernameRef}
       />
       <InputForm
         label="Password"
         name="password"
         type="password"
-        placeholder={`********`}
+        placeholder={`m38rmF$`}
+        value={`m38rmF$`}
       />
       <Button classname="bg-blue-600 w-full" type="submit">
         {text}

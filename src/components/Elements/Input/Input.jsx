@@ -1,7 +1,9 @@
+/* eslint-disable react/display-name */
 import { forwardRef } from "react";
 
 const Input = forwardRef((props, ref) => {
-  const { type, placeholder, name } = props;
+  // eslint-disable-next-line react/prop-types
+  const { type, placeholder, name, value } = props;
   return (
     <input
       ref={ref}
@@ -9,6 +11,7 @@ const Input = forwardRef((props, ref) => {
       placeholder={placeholder}
       name={name}
       id={name}
+      value={value}
       className="text-sm border rounded w-full py-2 px-3 text-slate-700 placeholder:opacity-50"
     />
   );
